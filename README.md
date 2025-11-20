@@ -1,79 +1,65 @@
-Kafka Order Processing System
+# Kafka Order Processing System  
+**Module:** Big Data and Analytics (Semester 8)
 
-Module: Big Data and Analytics (Semester 8)
+## Project Overview  
+This project implements a distributed stream-processing system using Apache Kafka and Python to process simulated e-commerce orders. It demonstrates the key concepts required for the assignment:
 
-Project Overview
+- Avro Serialization using Confluent Schema Registry (via order.avsc)
+- Real-time Aggregation of order prices (running average)
+- Fault Tolerance through retry logic
+- Dead Letter Queue (DLQ) to handle permanently failing messages (orders_dlq topic)
 
-This project implements a distributed system using Apache Kafka and Python to process simulated e-commerce orders. It demonstrates key stream processing concepts required by the assignment:
+## System Architecture
 
-Avro Serialization: Uses Confluent Schema Registry to enforce data schemas.
+### Producer (producer.py)
+- Generates random order events
+- Serializes data to Avro
+- Publishes events to the orders Kafka topic
 
-Real-time Aggregation: Calculates a running average of order prices.
+### Consumer (consumer.py)
+- Subscribes to the orders topic
+- Deserializes Avro messages
+- Computes a running average of order prices
+- Implements retry logic for temporary failures
+- Sends unrecoverable messages to the DLQ (orders_dlq topic)
 
-Fault Tolerance: Implements Retry Logic for temporary failures.
+### Infrastructure
+- Kafka Broker
+- Zookeeper
+- Confluent Schema Registry
+- All services orchestrated using Docker Compose
 
-Dead Letter Queue (DLQ): Handles permanently failed messages by routing them to a separate topic.
+## Prerequisites
+- Docker Desktop
+- Python 3.8+ version
 
-System Architecture
+## Setup & Installation
 
-Producer: Generates random order data, serializes it to Avro, and pushes to the orders topic.
+1. Clone the Repository
+git clone https://github.com/HIRUNAHR/semester-08-big-data-assignment1
+cd kafka-order-system
 
-Consumer: Subscribes to orders, deserializes data, performs aggregation, and handles errors.
-
-Infrastructure: Docker Compose stack running Kafka, Zookeeper, and Schema Registry.
-
-Prerequisites
-
-Docker Desktop
-
-Python 3.8+
-
-Setup & Installation
-
-Start Infrastructure
-
+2. Start the Kafka Infrastructure
 docker-compose up -d
 
-
-Wait 30-60 seconds for the services to initialize.
-
-Install Dependencies
-
+3. Install Python Dependencies
 pip install -r requirements.txt
 
+## How to Run the System
 
-How to Run
+You will need two separate terminal windows to run the producer and the consumer separately.
 
-1. Start the Consumer (Analytics Engine)
-Open a terminal and run:
-
+Terminal 1: Start the Consumer
 python consumer.py
 
-
-The consumer will wait for messages. Note: You may see intentional "Simulated Database Connection Error" logs. This is part of the assignment to demonstrate retry logic.
-
-2. Start the Producer (Data Source)
-Open a second terminal and run:
-
+Terminal 2: Start the Producer
 python producer.py
 
+## Project Files
 
-Assignment Proofs
-
-Aggregation: Check the Running Avg log output in the Consumer terminal.
-
-Retry Logic: Observe WARN logs indicating re-attempts on failure.
-
-DLQ: Observe ERROR logs showing messages moving to orders_dlq after 3 failed attempts.
-
-Project Structure
-
-docker-compose.yml: Kafka ecosystem configuration.
-
-order.avsc: Avro schema definition.
-
-producer.py: Order generator script.
-
-consumer.py: Main processing script with aggregation and error handling.
-
-requirements.txt: Python dependencies.
+File                    Description
+docker-compose.yml      Kafka, Zookeeper and Schema Registry configuration
+order.avsc              Avro schema for Order objects
+producer.py             Produces and serializes order events
+consumer.py             Consumes, aggregates, and handles failures
+requirements.txt        Python dependencies
