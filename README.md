@@ -36,14 +36,17 @@ This project implements a distributed stream-processing system using Apache Kafk
 ## Setup & Installation
 
 1. Clone the Repository
+
 git clone https://github.com/HIRUNAHR/semester-08-big-data-assignment1
 
 cd kafka-order-system
 
 2. Start the Kafka Infrastructure
+
 docker-compose up -d
 
 3. Install Python Dependencies
+
 pip install -r requirements.txt
 
 ## How to Run the System
@@ -51,16 +54,19 @@ pip install -r requirements.txt
 You will need two separate terminal windows to run the producer and the consumer separately.
 
 Terminal 1: Start the Consumer
+
 python consumer.py
 
 Terminal 2: Start the Producer
+
 python producer.py
 
 ## Project Files
 
-File                    Description
-docker-compose.yml      Kafka, Zookeeper and Schema Registry configuration
-order.avsc              Avro schema for Order objects
-producer.py             Produces and serializes order events
-consumer.py             Consumes, aggregates, and handles failures
-requirements.txt        Python dependencies
+File                 :   Description
+
+docker-compose.yml   :   Kafka, Zookeeper and Schema Registry configuration
+order.avsc           :   Avro schema for Order objects
+producer.py          :   Produces and serializes order events
+consumer.py          :   Consumes, aggregates, and handles failures
+requirements.txt     :   Python dependencies
