@@ -63,10 +63,8 @@ python producer.py
 
 ## Project Files
 
-File                 :   Description
-
-docker-compose.yml   :   Kafka, Zookeeper and Schema Registry configuration
-order.avsc           :   Avro schema for Order objects
-producer.py          :   Produces and serializes order events
-consumer.py          :   Consumes, aggregates, and handles failures
-requirements.txt     :   Python dependencies
+docker-compose.yml   
+order.avsc           
+producer.py          
+consumer.py          
+requirements.txt     
