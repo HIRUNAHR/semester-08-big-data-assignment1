@@ -37,6 +37,7 @@ This project implements a distributed stream-processing system using Apache Kafk
 
 1. Clone the Repository
 git clone https://github.com/HIRUNAHR/semester-08-big-data-assignment1
+
 cd kafka-order-system
 
 2. Start the Kafka Infrastructure
