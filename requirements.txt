@@ -1,0 +1,6 @@
+confluent-kafka>=2.6.1
+fastavro>=1.9.0
+requests>=2.31.0
+cachetools>=5.0.0
+Authlib>=1.0.0
+httpx>=0.24.0
